@@ -1,0 +1,93 @@
+Aqui vai a estrutura do programa, como o código interage com os arquivos e vice-versa.
+Sujeito a correções e alterações.
+
+-- Registro --
+Cada animal é um 'dicionário/registro', contendo:
+- Nome
+- Idade
+- Porte
+- Raça
+- Lar Temporário
+- Responsável pela Adoção
+- Data de Adoção
+Os últimos 2 elementos não existem (ou são vazios) para animais não adotados.
+
+Cada elemento 'dicionário' pode ocupar uma linha (ex. {'nome': nome, 'idade': idade,}),
+então podemos fazer um documento onde cada linha representa um dicionário de um animal.
+O documento 'registro.txt' servirá essa função.
+-> Sugestão: usamos um arquivo para os adotados e outro para os não adotados, 
+             ou mantemos um arquivo para os dois?
+
+Ao importar o documento em python, podemos usar file.readlines() para criar uma lista de strings,
+e usar literal_eval(string) em cada uma dessas strings para transformá-las de volta em dicionários.
+
+Para modificar o registro no documento, abrimos ele no modo "a+" de append, e podemos:
+- adicionar um novo animal no final da lista (file.write(string))
+- remover um animal (teoricamente, removendo um elemento de readlines() e usando writelines() com a lista resultante)
+- modificar um animal (novamente, modificando um elemento de readlines() e usando writelines() com a lista resultante)
+
+Os resultados da entrevista de adoção também devem ser guardados como um dicionário em outro arquivo,
+'entrevistas.txt', para serem referenciados depois. Cada dicionário desses deve incluir:
+- Nome do candidato
+- Respostas às perguntas 1, 2 e 3 (lista de tamanho 3)
+- Apto a adotar? (sim ou não)
+- Justificativa (em qual etapa ele falhou o teste?)
+
+
+
+
+-- Funções --
+Essas funções vão num programa só, por conveniência.
+-> Sugestão: Fazemos as funções no mesmo programa .py do processo principal?
+             ou fazemos uma biblioteca para usar no processo principal?
+
+As funções necessárias são:
+- Cadastrar um novo animal
+- Remover um animal
+- Modificar um animal
+
+- Consultar um animal individual (função para ser usada nas outras consultas)
+- Consultar todos os animais *não adotados*, do mais velho ao mais novo
+- Consultar todos os animais *já adotados*, da adoção mais recente à mais antiga
+  (vamos precisar manipular datas?)
+
+- Entrevista de adoção (receber as respostas das 3 perguntas e avaliar a validade)
+- Consultar animais *não adotados* que atendem aos requisitos de adoção (da entrevista)
+  (se não houver animais válidos, responder "não há animais que se encaixam nas suas circunstâncias" ou algo do tipo)
+
+- Adotar um animal (copiar o dicionário do animal, remover da lista de não adotados,
+                    mudar o dono e data de adoção, e adicionar à lista de adotados)
+
+
+
+
+-- Processo Principal --
+O programa que vai ser executado pelo usuário.
+
+IMPORTANTE: Caso queiram fazer testes de erro, cada input() deve ser testado para erro (com try e except),
+e caso a entrada seja ou inválida ou impossível, NÃO SAIR DO PROGRAMA.
+Cada input() deve existir num loop infinito (while True:), que pode ser escapado com um break.
+Caso um erro aconteça, imprimir "entrada inválida, tente novamente\n", e deixar o loop recomeçar.
+Caso a resposta seja correta, salvar o resultado, sair do loop, e continuar o processo.
+
+O programa deve ter funções acessíveis pelo usuário no começo do programa:
+- Acessar o registro dos animais (inclúi adicionar, modificar e remover)
+- Consultar o registro (todas as funções de consulta)
+- Adotar um animal (o processo do resto do código)
+- Sair do programa (fechar os arquivos com file.close() e sair do terminal)
+-> Sugestão: Após algum desses processos ser finalizado, retornamos ao começo do programa,
+              ou automaticamente saímos do programa?
+
+
+
+-- Fluxo de Adoção --
+Ao escolher Adotar um animal no começo, o programa executa as seguintes tarefas em ordem:
+1 - Começar a entrevista
+2 - Com os resultados da entrevista, mostrar a lista de animais adotáveis (ou a justificativa)
+3 - Receber a entrada com a escolha de um animal (organizados por índices? nomes?)
+4 - Pedir a confirmação do usuário (certeza? sim ou não) senão voltar ao passo 3
+5 - Finalmente "adotar" o animal (mudar as informações, mudar de lista etc).
+6 - Mensagem de conclusão e voltar ao começo do programa?
+
+
+
