@@ -1,0 +1,5 @@
+Como criar uma biblioteca local com funções para outros processos:
+https://docs.python.org/pt-br/3/tutorial/modules.html
+
+Como lidar com erros (8.3 mostra um teste de entrada com loop While True)
+https://docs.python.org/pt-br/3/tutorial/errors.html
