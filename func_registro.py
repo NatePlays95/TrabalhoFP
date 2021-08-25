@@ -30,12 +30,12 @@ def regAdicionar(): # adiciona um novo animal à lista dos não adotados
     
     while True:
         try: 
-            idade = int(input("Digite a idade do animal (número inteiro): "))
+            idade = int(input("Digite a idade do animal (número inteiro): ").strip())
             break
         except: print("digite um número inteiro")
     
     while True:
-        porte = input("Digite o porte do animal (pequeno, medio, grande): ")
+        porte = input("Digite o porte do animal (pequeno, medio, grande): ").lower().strip()
         if ( porte == "pequeno" or porte == "medio" or porte == "grande"):
             break
         else: print("digite um porte válido")
@@ -81,7 +81,7 @@ def regModificar():
         while True:
             mostrarAnimal(novalista_registro[id])
             print("O que deseja modificar?")
-            operacao = input("(nome, idade, porte, raca, remover, salvar): ")
+            operacao = input("(nome, idade, porte, raca, remover, salvar): ").lower().strip()
             
             if operacao == "nome":
                 nome = input("Digite o novo nome: ")
@@ -91,7 +91,7 @@ def regModificar():
             elif operacao == "idade":
                 while True:
                     try: 
-                        idade = int(input("Digite a nova idade (número inteiro): "))
+                        idade = int(input("Digite a nova idade (número inteiro): ").strip())
                         break
                     except: print("digite um número inteiro")
                 novalista_registro[id]['idade'] = idade
@@ -99,7 +99,7 @@ def regModificar():
             
             elif operacao == "porte":
                 while True:
-                    porte = input("Digite o novo porte (pequeno, medio, grande): ")
+                    porte = input("Digite o novo porte (pequeno, medio, grande): ").lower().strip()
                     if ( porte == "pequeno" or porte == "medio" or porte == "grande"):
                         break
                     else: print("digite um porte válido")
@@ -115,7 +115,7 @@ def regModificar():
                 print("Tem certeza que deseja remover esse animal do registro?")
                 inp = ""
                 while True:
-                    inp = input("(sim/nao): ")
+                    inp = input("(sim/nao): ").lower()
                     if inp == "nao": break
                     elif inp == "sim":
                         novalista_registro.pop(id)
