@@ -1,5 +1,5 @@
 def mostrarAnimal(animal):
-    print("Nome: "+animal['nome']+" | Idade: "+str(animal['idade'])+ " | Porte: "+animal['porte']+" | Raça: "+ animal['raca'])
+    print("Nome: "+animal['nome']+" | Idade: "+str(animal['idade'])+ " | Porte: "+animal['porte']+" | Raça: "+animal['raca']+" | Lar: "+animal['lar'])
 #---------------------------------------------------------------------
 
 def lerNaoAdotados():
@@ -41,7 +41,8 @@ def regAdicionar(): # adiciona um novo animal à lista dos não adotados
         else: print("digite um porte válido")
 
     raca = input("Digite a raça do animal: ")
-    entrada = {"nome": nome, "idade": idade, "porte": porte, "raca": raca}
+    lar = input("Digite o lar temporário do animal: ")
+    entrada = {"nome": nome, "idade": idade, "porte": porte, "raca": raca, "lar": lar}
 
     arq = open("registro_naoadotados.txt", "a") # modo adicionar linha
     arq.write(str(entrada)+"\n")
@@ -81,7 +82,7 @@ def regModificar():
         while True:
             mostrarAnimal(novalista_registro[id])
             print("O que deseja modificar?")
-            operacao = input("(nome, idade, porte, raca, remover, salvar): ").lower().strip()
+            operacao = input("(nome, idade, porte, raca, lar, remover, salvar): ").lower().strip()
             
             if operacao == "nome":
                 nome = input("Digite o novo nome: ")
@@ -109,6 +110,11 @@ def regModificar():
             elif operacao == "raca":
                 raca = input("Digite a nova raça: ")
                 novalista_registro[id]['raca'] = raca
+                print("Operação realizada com sucesso!")
+            
+            elif operacao == "lar":
+                raca = input("Digite o novo lar: ")
+                novalista_registro[id]['lar'] = lar
                 print("Operação realizada com sucesso!")
             
             elif operacao == "remover":
