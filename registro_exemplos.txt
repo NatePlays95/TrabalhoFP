@@ -1,0 +1,6 @@
+{'nome': 'Bob', 'idade': 7, 'porte': 'medio', 'raca': 'pug'}
+{'nome': 'Bob2', 'idade': 4, 'porte': 'pequeno', 'raca': 'aaa'}
+{'nome': 'Bob3', 'idade': 3, 'porte': 'pequeno', 'raca': 'hashi'}
+{'nome': 'Carla2', 'idade': 1, 'porte': 'pequeno', 'raca': 'lab'}
+{'nome': 'Bob4', 'idade': 6, 'porte': 'grande', 'raca': 'bob'}
+{'nome': 'a', 'idade': 9, 'porte': 'grande', 'raca': 'muito a'}
