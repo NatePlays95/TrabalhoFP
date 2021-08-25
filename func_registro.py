@@ -23,6 +23,32 @@ def salvarNaoAdotados(lista):
     arq.close()
 #---------------------------------------------------------------------
 
+def lerAdotados(): 
+    arq = open("registro_adotados.txt", "r") # modo leitura
+    velhalista_registro = arq.readlines()
+    
+    # converter strings pra dicts
+    novalista_registro = []
+    for linha in velhalista_registro:
+        linha.removesuffix("\n") # tirar o line break
+        dic = eval(linha) # transformar string em dicionário
+        novalista_registro.append(dic)
+    arq.close()
+    return novalista_registro
+#---------------------------------------------------------------------
+
+def adotarAnimal(animal, dono, data):
+    lista_naoadotados = lerNaoAdotados()
+    lista_naoadotados.remove(animal)
+
+    animal['dono'] = dono
+    animal['data'] = data
+
+    arq = open("registro_adotados.txt", "a")
+    arq.write(str(animal)+"\n")
+    arq.close()
+#---------------------------------------------------------------------
+
 def regAdicionar(): # adiciona um novo animal à lista dos não adotados
     print("--Novo Animal--")
     
