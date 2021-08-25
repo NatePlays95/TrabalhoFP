@@ -1,5 +1,3 @@
-import ast # Abstract Syntax Trees
-
 def mostrarAnimal(animal):
     print("Nome: "+animal['nome']+" | Idade: "+str(animal['idade'])+ " | Porte: "+animal['porte']+" | Raça: "+ animal['raca'])
 #---------------------------------------------------------------------
