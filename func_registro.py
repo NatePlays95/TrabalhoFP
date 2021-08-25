@@ -113,7 +113,7 @@ def regModificar():
                 print("Operação realizada com sucesso!")
             
             elif operacao == "lar":
-                raca = input("Digite o novo lar: ")
+                lar = input("Digite o novo lar: ")
                 novalista_registro[id]['lar'] = lar
                 print("Operação realizada com sucesso!")
             
