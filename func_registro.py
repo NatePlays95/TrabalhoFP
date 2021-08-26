@@ -1,5 +1,5 @@
 def mostrarAnimal(animal):
-    print("Nome: "+animal['nome']+" | Idade: "+str(animal['idade'])+ " | Porte: "+animal['porte']+" | Raça: "+animal['raca']+" | Lar: "+animal['lar'])
+    return "Nome: "+animal['nome']+" | Idade: "+str(animal['idade'])+ " | Porte: "+animal['porte']+" | Raça: "+animal['raca']+" | Lar: "+animal['lar']
 #---------------------------------------------------------------------
 
 def lerNaoAdotados():
@@ -84,8 +84,8 @@ def regModificar():
     # mostrar a lista de animais
     print("--Registro--")
     for i in range(len(novalista_registro)):
-        print("ID",i)
-        mostrarAnimal(novalista_registro[i])
+        # i + 1 para fazer os índices começando em 0 parecerem começar com 1
+        print(str(i+1) + ' - ' + mostrarAnimal(novalista_registro[i]))
         print("-------")
     
     if len(novalista_registro) == 0:
@@ -96,7 +96,7 @@ def regModificar():
         while True:
             id = -1
             try: 
-                id = int(input("Digite o ID do animal para modificar: "))
+                id = int(input("Digite o ID do animal para modificar: ")) - 1 # pra usar index 0 denovo
             except: id = -1
             
             if id not in range(len(novalista_registro)):
@@ -164,7 +164,3 @@ def regModificar():
     # fim
     print("Operação Concluída.")
 #---------------------------------------------------------------------
-
-# main
-#regAdicionar()
-#regModificar()
