@@ -87,7 +87,7 @@ def pesquisarAnimalNome(nomeAnimal):
     arquivo = open("registro_naoadotados.txt", 'r')
     lista = arquivo.readlines()
     for N in range(len(lista)):
-        if lista[N].find(nomeAnimal.capitalize())!=-1:
+        if lista[N].find(nomeAnimal)!=-1:
             return lista[N]
             break
     return 'Nenhum Animal Encontrado'
