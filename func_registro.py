@@ -1,5 +1,13 @@
+import datetime
+
 def mostrarAnimal(animal):
-    return "Nome: "+animal['nome']+" | Idade: "+str(animal['idade'])+ " | Porte: "+animal['porte']+" | Raça: "+animal['raca']+" | Lar: "+animal['lar']
+    return ( "Nome: "+animal['nome']+" | Idade: "+str(animal['idade'])+
+             " | Porte: "+animal['porte']+" | Raça: "+animal['raca']+" | Lar Temporário: "+animal['lar'] )
+#---------------------------------------------------------------------
+
+def mostrarAnimalAdotado(animal):
+    return ("Nome: "+animal['nome']+" | Idade: "+str(animal['idade'])+ " | Porte: "+animal['porte']+" | Raça: "+animal['raca']
+            +" | Lar Temporário: "+animal['lar'] + " | Dono: "+animal['dono'] +" | Data de Adoção: "+animal['data'].strftime("%d/%m/%y"))
 #---------------------------------------------------------------------
 
 def lerNaoAdotados():
@@ -9,8 +17,7 @@ def lerNaoAdotados():
     # converter strings pra dicts
     novalista_registro = []
     for linha in velhalista_registro:
-        linha.removesuffix("\n") # tirar o line break
-        dic = eval(linha) # transformar string em dicionário
+        dic = eval(linha.removesuffix("\n")) # transformar string em dicionário
         novalista_registro.append(dic)
     arq.close()
     return novalista_registro
@@ -30,14 +37,14 @@ def lerAdotados():
     # converter strings pra dicts
     novalista_registro = []
     for linha in velhalista_registro:
-        linha.removesuffix("\n") # tirar o line break
-        dic = eval(linha) # transformar string em dicionário
+        dic = eval(linha.removesuffix("\n")) # transformar string em dicionário
         novalista_registro.append(dic)
     arq.close()
     return novalista_registro
 #---------------------------------------------------------------------
 
 def adotarAnimal(animal, dono, data):
+    # animal é o dicionario, dono é string, data é datatime
     lista_naoadotados = lerNaoAdotados()
     lista_naoadotados.remove(animal)
 
@@ -99,6 +106,7 @@ def regModificar():
                 id = int(input("Digite o ID do animal para modificar: ")) - 1 # pra usar index 0 denovo
             except: id = -1
             
+            # o usuário só pode escolher números entre 0 e tamanho-1
             if id not in range(len(novalista_registro)):
                 print("id inválido, tente novamente")
             else:
@@ -164,3 +172,30 @@ def regModificar():
     # fim
     print("Operação Concluída.")
 #---------------------------------------------------------------------
+
+def regChecarAdotados():
+    lista_adotados = lerAdotados()
+    if lista_adotados == []:
+        print("Nenhum animal foi adotado.")
+    else:
+        # reorganizar a lista em ordem de adoção
+        novalista = sorted(lista_adotados, key=lambda a: a['data'], reverse=True)
+        # sorted(lista, key=?) organiza a lista de acordo com a chave
+        # a chave que eu quero é a 'data' de cada dicionario da lista
+        # então eu crio uma lambda (função temporária) para pegar a data
+        # como as datas são no formato datetime, elas podem ser comparadas
+        # finalmente, reversed inverte a ordem, do mais recente pro mais antigo
+
+        print("--Adotados--")
+        for i in range(len(novalista)):
+            print(mostrarAnimalAdotado(novalista[i]))
+            print("-------")
+
+    print("Operação Concluída.")
+
+#data = datetime.date(2021, 12, 4)
+#adotarAnimal({'nome': 'Bob', 'idade': 7, 'porte': 'medio', 'raca': 'pug', 'lar': 'Russia'}, "Natan Maia", data)
+# lista = lerAdotados()
+# print(lista)
+# for animal in lista:
+#     print(mostrarAnimalAdotado(animal))
