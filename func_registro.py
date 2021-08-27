@@ -10,6 +10,10 @@ def mostrarAnimalAdotado(animal):
             +" | Lar Temporário: "+animal['lar'] + " | Dono: "+animal['dono'] +" | Data de Adoção: "+animal['data'].strftime("%d/%m/%y"))
 #---------------------------------------------------------------------
 
+def ordernarIdade(lista): # inserir lista de dicionários, não lista de strings
+    return sorted(lista, key=lambda a: a['idade'], reverse=True)
+#---------------------------------------------------------------------
+
 def lerNaoAdotados():
     arq = open("registro_naoadotados.txt", "r") # modo leitura
     velhalista_registro = arq.readlines()
