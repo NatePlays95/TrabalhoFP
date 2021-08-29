@@ -1,4 +1,4 @@
-from func_registro import mostrarAnimal
+import func_registro
 import datetime
 
 def mostrarAnimalTamanho(tamanho) :
@@ -21,18 +21,18 @@ def mostrarAnimalTamanho(tamanho) :
         if tamanho == 'grande' :
             for N in range(len(listaDeAnimais)) :
                 # resultado += '%d - %s' %(N+1, listaDeAnimais[N])
-                resultado += str(N + 1) + ' - ' + mostrarAnimal(eval(listaDeAnimais[N].removesuffix("\n"))) + "\n"
+                resultado +=  func_registro.mostrarAnimal(eval(listaDeAnimais[N].removesuffix("\n"))) + "\n"
         elif tamanho == 'medio' :
             for N in range(len(listaDeAnimais)) :
                 if "'porte': 'pequeno'" in listaDeAnimais[N] or "'porte': 'medio'" in listaDeAnimais[N] :
                     # resultado += '%d - %s' % (N + 1, listaDeAnimais[N])
-                    resultado += str(N + 1) + ' - ' + mostrarAnimal(eval(listaDeAnimais[N].removesuffix("\n"))) + "\n"
+                    resultado +=  func_registro.mostrarAnimal(eval(listaDeAnimais[N].removesuffix("\n"))) + "\n"
         elif tamanho == 'pequeno' :
             for N in range(len(listaDeAnimais)) :
                 if "'porte': 'pequeno'" in listaDeAnimais[
                     N] :  # ao invés de transformar a função em dicionario, faz uma busca em string
                     # resultado += '%d - %s' % (N + 1, listaDeAnimais[N])
-                    resultado += str(N + 1) + ' - ' + mostrarAnimal(eval(listaDeAnimais[N].removesuffix("\n"))) + "\n"
+                    resultado +=  func_registro.mostrarAnimal(eval(listaDeAnimais[N].removesuffix("\n"))) + "\n"
         else :
             resultado = 'Tamanho inválido'
 
@@ -44,8 +44,48 @@ def mostrarAnimalTamanho(tamanho) :
     # uma lista lista_adotaveis com todos os dicionarios dos animais (só dar append à lista pra cada animal valido)
     # para que a função de adotar use essa lista.
     # remover os prints do resultado (inclusive os meus)
-    # se mudar, tambem mudar a parte do
 
+
+# ----------------------------------------------------------------------------------------------------------------------#
+
+def listaAnimaisTamanho(tamanho) :
+    # essa função retorna uma lista com todos os animais não adotados,
+    # de mesmo tamanho ou menor que o especificado.
+    
+    existeRegistro = True
+    # mudança 1 - usar um try para não abrir se o arquivo não existir
+    try :
+        arquivo = open("registro_naoadotados.txt", 'r')
+        listaDeAnimais = arquivo.readlines()
+        arquivo.close()
+    except :
+        # erro: não existe registro_naoadotados.txt
+        existeRegistro = False
+
+    if not existeRegistro :  # se o arquivo não existe
+        return
+    else :  # se existe sim o registro
+        novalista = []
+        # se a pessoa pode ter animais grandes, ela pode ter pequenos também!
+        if tamanho == 'grande' : 
+            for N in range(len(listaDeAnimais)) :
+                novalista.append(eval(listaDeAnimais[N].removesuffix("\n")))
+        elif tamanho == 'medio' :
+            for N in range(len(listaDeAnimais)) :
+                if "'porte': 'pequeno'" in listaDeAnimais[N] or "'porte': 'medio'" in listaDeAnimais[N] :
+                    novalista.append(eval(listaDeAnimais[N].removesuffix("\n")))
+        elif tamanho == 'pequeno' :
+            for N in range(len(listaDeAnimais)) :
+                if "'porte': 'pequeno'" in listaDeAnimais[N] :  
+
+                   novalista.append(eval(listaDeAnimais[N].removesuffix("\n")))
+        else :
+            print('Tamanho inválido')
+            return
+        if novalista == [] :
+            return
+        else :
+            return novalista
 
 # ----------------------------------------------------------------------------------------------------------------------#
 
@@ -124,12 +164,15 @@ def pesquisarAnimalNome(nomeAnimal) :
     arquivo.close()
     for N in range(len(lista)) :
         if lista[N].find("'nome': '%s'" %nomeAnimal) != -1 :
-            return lista[N]
-            break
+            return lista[N] # retorna o primeiro animal com esse nome
     return 'Nenhum Animal Encontrado'
-    # bug: se não converter o animal de string pra dicionario com eval(listaDeAnimais[N].removesuffix("\n")),
-    # o usuario pode pesquisar 'porte' e receber todos os animais
-    # ao invés disso, comparar nomeAnimal com animal['nome'], e retornar a lista dos animais validos
+    # ok!
+
+def pesquisarAnimalPorNomeEmLista(nomeAnimal, lista) :
+    for animal in lista :
+        if animal.get('nome') == nomeAnimal : # dict.get('chave') funciona que nem dict['chave']
+            return animal # retorna o primeiro animal (dic) com esse nome
+    # caso não houver, retorna um None
 
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -139,46 +182,83 @@ def pesquisarDonoNome(nomeDono) :
     arquivo.close()
     for N in range(len(lista)) :
         if lista[N].find("'nome': '%s'" %nomeDono) != -1 :
-            return lista[N]
-            break
-    return 'Dono não cadastrado'
+            return lista[N] # string
+                            # retorna o primeiro dono com esse nome
+                            # note que se uma pessoa fizer duas entrevistas,
+                            # ela vai ter duas entradas...
 
 # ----------------------------------------------------------------------------------------------------------------------
 
-def adotarAnimal(nomeAnimal, nomeDono):
+def adotarAnimal(): # processo do main para adotar o animal.
+    # pegar o futuro dono:
+    nomeDono = input("Digite o nome da pessoa a adotar: ")
     try:
-        animal = eval(pesquisarAnimalNome(nomeAnimal))
-    except: return 'Nenhum Animal Encontrado'
-    try:
-        eval(pesquisarDonoNome(nomeDono))
-    except: return 'Dono não cadastrado'
-    while True:
-        try:
-            data = datetime.date(int(input('Digite o Ano Atual:')), int(input('Digite o Mês(em número):')), int(input('Digite o dia:')))
-            break
-        except: print('Data Inválida.\nDigite Novamente.')
-    removerAnimalnaoAdotado(animal)
-    animal['dono'] = nomeDono
-    animal['data'] = data
-    arq = open("registro_adotados.txt", "a")
-    arq.write(str(animal) + "\n")
-    arq.close()
-    return 'Animal Adotado com Sucesso!'
+        dono = eval(pesquisarDonoNome(nomeDono).removesuffix("\n"))
+        # dono é um dicionário
+        # se pesquisarDonoNome não achar nenhum, vai retornar nada, 
+        # gerando um erro, o que ativa o except
+    except: 
+        print('Dono não cadastrado')
+        return # sai da função de adoção, de volta pro main.
+    
+    # esse dono pode realizar uma adoção?
+    if dono['apto'] == "nao" :
+        print("Essa pessoa não está apta a adotar um animal.")
+        print("Justificativa:\n"+dono['justificativa'])
+        return
+    elif dono['apto'] == "sim" :
+        # pegar a lista de animais que o dono pode manter
+        listaAdotaveis = listaAnimaisTamanho(dono['resposta3'])
+        listaAdotaveis = func_registro.ordernarIdade(listaAdotaveis)
+        # print(listaAdotaveis)
+        # mostrar todas as opções
+        print("--Animais Disponíveis--") 
+        # usando mostrarAnimal manualmente
+        # para mostrar eles na ordem de idade
+        for animal in listaAdotaveis :
+            print(func_registro.mostrarAnimal(animal))
+        
+        # perguntar se o dono deseja prosseguir
+        print("Deseja adotar um desses animais?")
+        while True :
+            inp = input("Responda com Sim ou Nao: ").lower().strip()
+            if inp == "nao" : return # sair de volta para o main
+            elif inp == "sim" : break # sai desse loop
+
+        # pegar o animal por nome:
+        nomeAnimal = input("Digite o nome do animal que deseja adotar: ")
+        animal = pesquisarAnimalPorNomeEmLista(nomeAnimal, listaAdotaveis)
+        if  animal == None : # se a função de pesquisa não achou um animal
+            print('Esse animal não está na lista.')
+            return  
+
+        # digitar a data da adoção
+        while True:
+            try:
+                ano = int(input('Digite o Ano Atual:'))
+                mes = int(input('Digite o Mês(em número):'))
+                dia = int(input('Digite o dia:'))
+                data = datetime.date(ano,mes,dia)
+                break
+            except: print('Data inválida, tente novamente.')
+        
+        func_registro.regMoverAnimalAdotado(animal, nomeDono, data)
+        return 'Animal Adotado com Sucesso!'
 
 #----------------------------------------------------------------------------------------------------------------------
 
-def removerAnimalnaoAdotado(animal):
-    try:
-        arquivo = open('registro_naoadotados.txt','r')
-        lista = arquivo.readlines()
-    except: print('Arquivo não existe.')
-    try:
-        lista.remove(str(animal)+'\n')
-    except: print('Animal não está na Lista de Não Adotados.')
-    arquivo.close()
-    arquivo = open('registro_naoadotados.txt','w')
-    for N in range(len(lista)):
-        arquivo.write(lista[N])
-    arquivo.close()
+# def removerAnimalnaoAdotado(animal):
+#     try:
+#         arquivo = open('registro_naoadotados.txt','r')
+#         lista = arquivo.readlines()
+#     except: print('Arquivo não existe.')
+#     try:
+#         lista.remove(str(animal)+'\n')
+#     except: print('Animal não está na Lista de Não Adotados.')
+#     arquivo.close()
+#     arquivo = open('registro_naoadotados.txt','w')
+#     for N in range(len(lista)):
+#         arquivo.write(lista[N])
+#     arquivo.close()
     #fiz usando dois arquivos pois o precisava ler e dps escrever por cima, o R+ ele append e o W+ tava apagando tudo,
     #por que ele precisa primeiro escrever e dps ler senão ele apaga
