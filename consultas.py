@@ -26,20 +26,14 @@ def lerNaoAdotados():
 
 def regChecarNaoAdotados():
     lista_adotados = lerNaoAdotados()
+    #verificando se existem animais não adotados na lista
     if lista_adotados == []:
         print("Nenhum animal foi adotado.")
     else:
-        # reorganizar a lista em ordem de adoção
-        novalista = sorted(lista_adotados, key=lambda a: a['data'], reverse=True)
-        # sorted(lista, key=?) organiza a lista de acordo com a chave
-        # a chave que eu quero é a 'data' de cada dicionario da lista
-        # então eu crio uma lambda (função temporária) para pegar a data
-        # como as datas são no formato datetime, elas podem ser comparadas
-        # finalmente, reversed inverte a ordem, do mais recente pro mais antigo
-
-        print("Adotados")
+        novalista = lista_adotados
+        print("Não adotados")
         
-        
+        #mostrando os valores em uma tabela
         for i in range(len(novalista)):
             mostrarAnimalNaoAdotado(novalista[i])
 
