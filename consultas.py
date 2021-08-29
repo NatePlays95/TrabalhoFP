@@ -1,4 +1,3 @@
-import datetime
 from prettytable import PrettyTable 
 
 #tabela recebendo os dados do cabeçalho
@@ -26,14 +25,16 @@ def lerNaoAdotados():
 
 def regChecarNaoAdotados():
     lista_adotados = lerNaoAdotados()
-    #verificando se existem animais não adotados na lista
     if lista_adotados == []:
         print("Nenhum animal foi adotado.")
     else:
-        novalista = lista_adotados
+        #reorganizando a lista pela idade
+        novalista = sorted(lista_adotados, key=lambda a: a['idade'], reverse=True)
+        
+
         print("Não adotados")
         
-        #mostrando os valores em uma tabela
+    
         for i in range(len(novalista)):
             mostrarAnimalNaoAdotado(novalista[i])
 
