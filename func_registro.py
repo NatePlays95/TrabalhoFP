@@ -47,10 +47,11 @@ def lerAdotados():
     return novalista_registro
 #---------------------------------------------------------------------
 
-def adotarAnimal(animal, dono, data):
+def regMoverAnimalAdotado(animal, dono, data):
     # animal é o dicionario, dono é string, data é datatime
     lista_naoadotados = lerNaoAdotados()
     lista_naoadotados.remove(animal)
+    salvarNaoAdotados(lista_naoadotados)
 
     animal['dono'] = dono
     animal['data'] = data
@@ -58,6 +59,7 @@ def adotarAnimal(animal, dono, data):
     arq = open("registro_adotados.txt", "a")
     arq.write(str(animal)+"\n")
     arq.close()
+
 #---------------------------------------------------------------------
 
 def regAdicionar(): # adiciona um novo animal à lista dos não adotados
@@ -174,10 +176,9 @@ def regModificar():
                 break
         
     # fim
-    print("Operação Concluída.")
 #---------------------------------------------------------------------
 
-def regChecarAdotados():
+def regListarAdotados():
     lista_adotados = lerAdotados()
     if lista_adotados == []:
         print("Nenhum animal foi adotado.")
@@ -194,12 +195,3 @@ def regChecarAdotados():
         for i in range(len(novalista)):
             print(mostrarAnimalAdotado(novalista[i]))
             print("-------")
-
-    print("Operação Concluída.")
-
-#data = datetime.date(2021, 12, 4)
-#adotarAnimal({'nome': 'Bob', 'idade': 7, 'porte': 'medio', 'raca': 'pug', 'lar': 'Russia'}, "Natan Maia", data)
-# lista = lerAdotados()
-# print(lista)
-# for animal in lista:
-#     print(mostrarAnimalAdotado(animal))
