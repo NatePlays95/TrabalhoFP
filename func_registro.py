@@ -5,10 +5,6 @@ def mostrarAnimal(animal):
              " | Porte: "+animal['porte']+" | Raça: "+animal['raca']+" | Lar Temporário: "+animal['lar'] )
 #---------------------------------------------------------------------
 
-def mostrarAnimalAdotado(animal):
-    return ("Nome: "+animal['nome']+" | Idade: "+str(animal['idade'])+ " | Porte: "+animal['porte']+" | Raça: "+animal['raca']
-            +" | Lar Temporário: "+animal['lar'] + " | Dono: "+animal['dono'] +" | Data de Adoção: "+animal['data'].strftime("%d/%m/%y"))
-#---------------------------------------------------------------------
 
 def ordernarIdade(lista): # inserir lista de dicionários, não lista de strings
     return sorted(lista, key=lambda a: a['idade'], reverse=True)
@@ -32,19 +28,6 @@ def salvarNaoAdotados(lista):
     for dic in lista:
         arq.write(str(dic)+"\n")
     arq.close()
-#---------------------------------------------------------------------
-
-def lerAdotados(): 
-    arq = open("registro_adotados.txt", "r") # modo leitura
-    velhalista_registro = arq.readlines()
-    
-    # converter strings pra dicts
-    novalista_registro = []
-    for linha in velhalista_registro:
-        dic = eval(linha.removesuffix("\n")) # transformar string em dicionário
-        novalista_registro.append(dic)
-    arq.close()
-    return novalista_registro
 #---------------------------------------------------------------------
 
 def regMoverAnimalAdotado(animal, dono, data):
@@ -178,20 +161,3 @@ def regModificar():
     # fim
 #---------------------------------------------------------------------
 
-def regListarAdotados():
-    lista_adotados = lerAdotados()
-    if lista_adotados == []:
-        print("Nenhum animal foi adotado.")
-    else:
-        # reorganizar a lista em ordem de adoção
-        novalista = sorted(lista_adotados, key=lambda a: a['data'], reverse=True)
-        # sorted(lista, key=?) organiza a lista de acordo com a chave
-        # a chave que eu quero é a 'data' de cada dicionario da lista
-        # então eu crio uma lambda (função temporária) para pegar a data
-        # como as datas são no formato datetime, elas podem ser comparadas
-        # finalmente, reversed inverte a ordem, do mais recente pro mais antigo
-
-        print("--Adotados--")
-        for i in range(len(novalista)):
-            print(mostrarAnimalAdotado(novalista[i]))
-            print("-------")

@@ -21,10 +21,10 @@ while True:
         entrevista.adotarAnimal()
         print("Operação Concluída.")
     elif op == "5":
-        func_registro.regListarAdotados()
+        consultas.regListarAdotados()
         print("Operação Concluída.")
     elif op == "6":
-        consultas.regChecarNaoAdotados()
+        consultas.regListarNaoAdotados()
         print("Operação Concluída.")
     elif op == "sair":
         exit()
