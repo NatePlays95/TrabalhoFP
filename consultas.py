@@ -1,6 +1,6 @@
 from prettytable import PrettyTable 
 import datetime
-from func_registro import lerNaoAdotados, lerAdotados
+from func_registro import lerNaoAdotados, lerAdotados, mostrarAnimal
 
 #CONSULTA NÃO ADOTADOS --------------------------------------------------------------------------
 
@@ -14,22 +14,10 @@ def mostrarAnimalNaoAdotado(animal):
    return (tabelaNaoAdotados)
 #---------------------------------------------------------------------#
 
-# def lerNaoAdotados():
-#     try: 
-#         arq = open("registro_naoadotados.txt", "r") # modo leitura
-#         velhalista_registro = arq.readlines()
-#     except: return [] # caso o arquivo não exista
-    
-#     # converter strings pra dicts
-#     novalista_registro = []
-#     for linha in velhalista_registro:
-#         dic = eval(linha.removesuffix("\n")) # transformar string em dicionário
-#         novalista_registro.append(dic)
-#     arq.close()
-#     return novalista_registro
-# #---------------------------------------------------------------------#
-
 def regListarNaoAdotados():
+    tabelaNaoAdotados.clear_rows()
+    # limpar a tabela para não repetir entradas
+
     lista_naoadotados = lerNaoAdotados()
     #Verificando se existem animais que ainda não foram adotados
     if lista_naoadotados == []:
@@ -55,22 +43,10 @@ def mostrarAnimalAdotado(animal):
     return tabelaAdotados
 #---------------------------------------------------------------------
 
-# def lerAdotados(): 
-#     try:
-#         arq = open("registro_adotados.txt", "r") # modo leitura
-#         velhalista_registro = arq.readlines()
-#     except: return [] # caso arquivo não exista
-
-#     # converter strings pra dicts
-#     novalista_registro = []
-#     for linha in velhalista_registro:
-#         dic = eval(linha.removesuffix("\n")) # transformar string em dicionário
-#         novalista_registro.append(dic)
-#     arq.close()
-#     return novalista_registro
-# #---------------------------------------------------------------------
-
 def regListarAdotados():
+    tabelaAdotados.clear_rows()
+    # limpar a tabela para não repetir entradas
+    
     lista_adotados = lerAdotados()
     if lista_adotados == []:
         print("Nenhum animal foi adotado.")
