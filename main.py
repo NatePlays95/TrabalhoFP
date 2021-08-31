@@ -6,7 +6,7 @@ while True:
     print("\nQue operação deseja realizar?")
     # adicionar as novas operações (entrevista, adotar) aqui
     print("1: Adicionar um novo animal\n2: Modificar um animal no registro\n"
-        + "3: Realizar uma entrevista pré-adoção\n4: Adotar um animal\n5: Listar os animais adotados")
+        + "3: Realizar uma entrevista pré-adoção\n4: Adotar um animal\n5: Listar os animais adotados\n6: Listar os animais não adotados")
     op = input("(1, 2, 3, 4, 5, 6, sair): ").lower().strip()
     if op == "1":
         func_registro.regAdicionar()
