@@ -1,4 +1,5 @@
 from prettytable import PrettyTable 
+import datetime
 
 #CONSULTA NÃO ADOTADOS --------------------------------------------------------------------------
 
