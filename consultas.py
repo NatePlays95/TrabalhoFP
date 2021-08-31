@@ -1,5 +1,6 @@
 from prettytable import PrettyTable 
 import datetime
+from func_registro import lerNaoAdotados, lerAdotados
 
 #CONSULTA NÃO ADOTADOS --------------------------------------------------------------------------
 
@@ -13,18 +14,20 @@ def mostrarAnimalNaoAdotado(animal):
    return (tabelaNaoAdotados)
 #---------------------------------------------------------------------#
 
-def lerNaoAdotados():
-    arq = open("registro_naoadotados.txt", "r") # modo leitura
-    velhalista_registro = arq.readlines()
+# def lerNaoAdotados():
+#     try: 
+#         arq = open("registro_naoadotados.txt", "r") # modo leitura
+#         velhalista_registro = arq.readlines()
+#     except: return [] # caso o arquivo não exista
     
-    # converter strings pra dicts
-    novalista_registro = []
-    for linha in velhalista_registro:
-        dic = eval(linha.removesuffix("\n")) # transformar string em dicionário
-        novalista_registro.append(dic)
-    arq.close()
-    return novalista_registro
-#---------------------------------------------------------------------#
+#     # converter strings pra dicts
+#     novalista_registro = []
+#     for linha in velhalista_registro:
+#         dic = eval(linha.removesuffix("\n")) # transformar string em dicionário
+#         novalista_registro.append(dic)
+#     arq.close()
+#     return novalista_registro
+# #---------------------------------------------------------------------#
 
 def regListarNaoAdotados():
     lista_naoadotados = lerNaoAdotados()
@@ -42,7 +45,6 @@ def regListarNaoAdotados():
 
         print(tabelaNaoAdotados)
 
-print("\n Operação Concluída.\n")
 
 #CONSULTA ADOTADOS --------------------------------------------------------------------------
 
@@ -53,18 +55,20 @@ def mostrarAnimalAdotado(animal):
     return tabelaAdotados
 #---------------------------------------------------------------------
 
-def lerAdotados(): 
-    arq = open("registro_adotados.txt", "r") # modo leitura
-    velhalista_registro = arq.readlines()
-    
-    # converter strings pra dicts
-    novalista_registro = []
-    for linha in velhalista_registro:
-        dic = eval(linha.removesuffix("\n")) # transformar string em dicionário
-        novalista_registro.append(dic)
-    arq.close()
-    return novalista_registro
-#---------------------------------------------------------------------
+# def lerAdotados(): 
+#     try:
+#         arq = open("registro_adotados.txt", "r") # modo leitura
+#         velhalista_registro = arq.readlines()
+#     except: return [] # caso arquivo não exista
+
+#     # converter strings pra dicts
+#     novalista_registro = []
+#     for linha in velhalista_registro:
+#         dic = eval(linha.removesuffix("\n")) # transformar string em dicionário
+#         novalista_registro.append(dic)
+#     arq.close()
+#     return novalista_registro
+# #---------------------------------------------------------------------
 
 def regListarAdotados():
     lista_adotados = lerAdotados()

@@ -11,9 +11,26 @@ def ordernarIdade(lista): # inserir lista de dicionários, não lista de strings
 #---------------------------------------------------------------------
 
 def lerNaoAdotados():
-    arq = open("registro_naoadotados.txt", "r") # modo leitura
-    velhalista_registro = arq.readlines()
+    try: 
+        arq = open("registro_naoadotados.txt", "r") # modo leitura
+        velhalista_registro = arq.readlines()
+    except: return [] # caso o arquivo não exista
     
+    # converter strings pra dicts
+    novalista_registro = []
+    for linha in velhalista_registro:
+        dic = eval(linha.removesuffix("\n")) # transformar string em dicionário
+        novalista_registro.append(dic)
+    arq.close()
+    return novalista_registro
+#---------------------------------------------------------------------
+
+def lerAdotados(): 
+    try:
+        arq = open("registro_adotados.txt", "r") # modo leitura
+        velhalista_registro = arq.readlines()
+    except: return [] # caso arquivo não exista
+
     # converter strings pra dicts
     novalista_registro = []
     for linha in velhalista_registro:
@@ -70,7 +87,7 @@ def regAdicionar(): # adiciona um novo animal à lista dos não adotados
     arq.write(str(entrada)+"\n")
 
     arq.close()
-    print("Animal adicionado ao registro!\nOperação Concluida.")
+    print("Animal adicionado ao registro!")
 #---------------------------------------------------------------------
 
 def regModificar():
