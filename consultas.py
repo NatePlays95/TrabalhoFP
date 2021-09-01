@@ -21,7 +21,7 @@ def regListarNaoAdotados():
     lista_naoadotados = lerNaoAdotados()
     #Verificando se existem animais que ainda não foram adotados
     if lista_naoadotados == []:
-        print("Nenhum animal foi adotado.")
+        print("Nenhum animal no sistema.")
     else:
         #reorganizando a lista pela idade
         novalista = sorted(lista_naoadotados, key=lambda a: a['idade'], reverse=True)
