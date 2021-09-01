@@ -198,7 +198,7 @@ def adotarAnimal(): # processo do main para adotar o animal.
         # se pesquisarDonoNome não achar nenhum, vai retornar nada, 
         # gerando um erro, o que ativa o except
     except: 
-        print('Dono não cadastrado')
+        print('Pessoa não cadastrada')
         return # sai da função de adoção, de volta pro main.
     
     # esse dono pode realizar uma adoção?
@@ -235,9 +235,9 @@ def adotarAnimal(): # processo do main para adotar o animal.
         # digitar a data da adoção
         while True:
             try:
-                ano = int(input('Digite o Ano Atual:'))
-                mes = int(input('Digite o Mês(em número):'))
-                dia = int(input('Digite o dia:'))
+                ano = int(input('Digite o Ano Atual: '))
+                mes = int(input('Digite o Mês (em número): '))
+                dia = int(input('Digite o dia: '))
                 data = datetime.date(ano,mes,dia)
                 break
             except: print('Data inválida, tente novamente.')
